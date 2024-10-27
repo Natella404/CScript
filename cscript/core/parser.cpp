@@ -38,81 +38,25 @@ public:
         Token(Type t, std::string v) : type(t), value(v) {}
     };
 
-private:
-    std::map<std::string, Token::Type> keywords = {
-        // Grundläggande
-        {"create", Token::CREATE},
-        {"store", Token::STORE},
-        {"show", Token::SHOW},
+    // ... (resten av parser-koden) ...
 
-        // Matematiska operationer
-        {"add", Token::MATH},
-        {"subtract", Token::MATH},
-        {"multiply", Token::MATH},
-        {"divide", Token::MATH},
-        {"power", Token::MATH},
+    std::vector<std::string> parseCode(const std::string& code) {
+        std::vector<std::string> result;
+        std::vector<Token> tokens = tokenize(code);
 
-        // Kontrollstrukturer
-        {"when", Token::WHEN},
-        {"otherwise", Token::OTHERWISE},
-        {"repeat", Token::REPEAT},
-        {"while", Token::WHILE},
-        {"foreach", Token::FOREACH},
-
-        // Listoperationer
-        {"append", Token::LIST_OP},
-        {"remove", Token::LIST_OP},
-        {"sort", Token::LIST_OP},
-        {"find", Token::LIST_OP},
-
-        // Strängoperationer
-        {"join", Token::STRING_OP},
-        {"split", Token::STRING_OP},
-        {"replace", Token::STRING_OP},
-
-        // Block end
-        {"--", Token::END_BLOCK}
-    };
-
-    std::vector<std::string> operators = {
-        "+", "-", "*", "/", "=", ">", "<", ">=", "<="
-    };
-
-public:
-    std::vector<Token> parseCode(const std::string& code) {
-        std::vector<Token> tokens;
-        std::istringstream stream(code);
-        std::string word;
-
-        while (stream >> word) {
-            // Check for keywords
-            if (keywords.find(word) != keywords.end()) {
-                tokens.emplace_back(keywords[word], word);
-                continue;
-            }
-
-            // Check for operators
-            if (std::find(operators.begin(), operators.end(), word) != operators.end()) {
-                tokens.emplace_back(Token::OPERATOR, word);
-                continue;
-            }
-
-            // Check for numbers
-            if (std::all_of(word.begin(), word.end(), ::isdigit)) {
-                tokens.emplace_back(Token::NUMBER, word);
-                continue;
-            }
-
-            // Check for strings (with quotes)
-            if (word[0] == '"' && word[word.length()-1] == '"') {
-                tokens.emplace_back(Token::STRING, word.substr(1, word.length()-2));
-                continue;
-            }
-
-            // Must be an identifier
-            tokens.emplace_back(Token::IDENTIFIER, word);
+        // Konvertera tokens till strings för enklare Python-integration
+        for (const auto& token : tokens) {
+            result.push_back(token.value);
         }
 
+        return result;
+    }
+
+private:
+    std::vector<Token> tokenize(const std::string& code) {
+        // Din existerande tokenize-implementation
+        std::vector<Token> tokens;
+        // ... parsing logik ...
         return tokens;
     }
 };
