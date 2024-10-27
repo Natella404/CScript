@@ -9,20 +9,19 @@
 
 namespace py = pybind11;
 
+// Definiera klassen utanför PYBIND11_MODULE
 class MachineCodeGenerator {
 private:
-    std::vector<std::string> machineCode;  // Lagt till denna rad
+    std::vector<std::string> machineCode;
     std::map<std::string, int> variables;
 
 public:
     MachineCodeGenerator() {}
 
     std::vector<std::string> generateMachineCode(const std::vector<std::string>& tokens) {
-        // Rensa tidigare genererad kod
         machineCode.clear();
         variables.clear();
 
-        // Här kommer vi senare implementera den faktiska kodgenereringen
         for (const auto& token : tokens) {
             machineCode.push_back("Processing: " + token);
         }
@@ -30,24 +29,23 @@ public:
         return machineCode;
     }
 
-bool executeCode(const std::vector<std::string>& code) {
-    try {
-        for (const auto& instruction : code) {
-            // Här ska vi faktiskt exekvera koden och bara visa resultatet
-            // Till exempel:
-            if (instruction.substr(0, 7) == "DISPLAY") {
-                std::cout << instruction.substr(8) << std::endl;
+    bool executeCode(const std::vector<std::string>& code) {
+        try {
+            for (const auto& instruction : code) {
+                std::cout << instruction << std::endl;
             }
-            // Andra instruktioner kommer att hanteras på liknande sätt
+            return true;
+        } catch (const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+            return false;
         }
-        return true;
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return false;
     }
-}
+};
 
+// Definiera PYBIND11_MODULE separat
 PYBIND11_MODULE(generator, m) {
+    m.doc() = "CScript code generator module"; // Optional dokumentation
+
     py::class_<MachineCodeGenerator>(m, "MachineCodeGenerator")
         .def(py::init<>())
         .def("generate_machine_code", &MachineCodeGenerator::generateMachineCode)
