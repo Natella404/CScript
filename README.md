@@ -1,0 +1,2 @@
+# CScript
+a new langue
