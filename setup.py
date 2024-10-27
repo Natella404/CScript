@@ -7,12 +7,11 @@ setup(
     include_package_data=True,
     install_requires=[],
     package_data={
-        'cscript': ['core/*.cpp', 'core/*.h'],
+        'cscript': ['core/*.cpp', 'core/*.h']
     },
     entry_points={
         'console_scripts': [
-            'cscript=cscript.runner:main',  # Ändrad till runner.py
-        ],
+            'cscript=cscript.runner:main'
+        ]
     }
-)
 )
