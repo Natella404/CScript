@@ -11,7 +11,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'cscript=cscript.python.ide_setup:main',
+            'cscript=cscript.runner:main',  # Ändrad till runner.py
         ],
     }
+)
 )
