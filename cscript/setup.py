@@ -5,7 +5,6 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[],
     package_data={
         'cscript': ['core/*.cpp', 'core/*.h']
     },

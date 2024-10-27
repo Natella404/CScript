@@ -15,7 +15,6 @@ def main():
         with open(filename, 'r') as file:
             content = file.read()
             print(f"Processing file: {filename}")
-            # Här kommer vi senare lägga till kodkörning
             print("CScript är redo att köra filen!")
     except Exception as e:
         print(f"Error: {str(e)}")
