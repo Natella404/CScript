@@ -1,1 +1,2 @@
-git+https://github.com/CScript/cscript.git
+setuptools>=42.0.0
+wheel>=0.37.0
