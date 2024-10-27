@@ -30,18 +30,22 @@ public:
         return machineCode;
     }
 
-    bool executeCode(const std::vector<std::string>& code) {
-        try {
-            for (const auto& instruction : code) {
-                std::cout << "Executing: " << instruction << std::endl;
+bool executeCode(const std::vector<std::string>& code) {
+    try {
+        for (const auto& instruction : code) {
+            // Här ska vi faktiskt exekvera koden och bara visa resultatet
+            // Till exempel:
+            if (instruction.substr(0, 7) == "DISPLAY") {
+                std::cout << instruction.substr(8) << std::endl;
             }
-            return true;
-        } catch (const std::exception& e) {
-            std::cerr << "Execution error: " << e.what() << std::endl;
-            return false;
+            // Andra instruktioner kommer att hanteras på liknande sätt
         }
+        return true;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return false;
     }
-};
+}
 
 PYBIND11_MODULE(generator, m) {
     py::class_<MachineCodeGenerator>(m, "MachineCodeGenerator")
