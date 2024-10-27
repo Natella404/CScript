@@ -1,4 +1,10 @@
 # cscript/runner.py
+import sys  # Lade till denna import
+import os
+import subprocess
+import pkg_resources
+from .core.generator import MachineCodeGenerator
+from .core.parser import Parser
 def main():
     try:
         if len(sys.argv) < 2:
