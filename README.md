@@ -21,4 +21,3 @@ display message
 - Naturlig syntax
 - Optimerad maskinkodsgenerering
 - Enkel installation
-```
