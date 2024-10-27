@@ -1,3 +1,14 @@
+// cscript/core/generator.cpp
+#include <string>
+#include <vector>
+#include <map>
+#include <iostream>
+#include <memory>
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+
+namespace py = pybind11;
+
 class CodeGenerator {
 private:
     struct OptimizationContext {
@@ -6,6 +17,9 @@ private:
         std::vector<std::string> variables;
         int nestingLevel;
     };
+
+    std::map<std::string, int> variables;
+    std::vector<std::string> machineCode;
 
     std::string optimizeCode(const std::vector<std::string>& basicCode) {
         std::string optimizedCode;
@@ -27,27 +41,46 @@ private:
     }
 
     bool canUnrollLoop(const std::vector<std::string>& code) {
-        // Analysera om loopen kan rullas ut för bättre prestanda
-        return true; // Temporärt
+        return true;
     }
 
     std::string generateUnrolledLoop(const std::vector<std::string>& code) {
-        // Generera utrullad loop-kod
         return "UNROLLED_LOOP";
     }
 
     bool canParallelize(const std::vector<std::string>& code) {
-        // Analysera om koden kan köras parallellt
-        return true; // Temporärt
+        return true;
     }
 
     std::string generateParallelCode(const std::vector<std::string>& code) {
-        // Generera parallell kod
-        return "PARALLEL_EXECUTION";
+        return "PARALLEL_CODE";
     }
 
     std::string optimizeMemoryUsage(const std::string& code) {
-        // Optimera minnesanvändning
         return "MEMORY_OPTIMIZED";
     }
+
+public:
+    std::vector<std::string> generateMachineCode(const std::vector<std::string>& tokens) {
+        machineCode.clear();
+        variables.clear();
+
+        // Implementera kodgenerering här
+
+        return machineCode;
+    }
+
+    bool executeCode(const std::vector<std::string>& machineCode) {
+        for (const auto& instruction : machineCode) {
+            std::cout << "Executing: " << instruction << std::endl;
+        }
+        return true;
+    }
 };
+
+PYBIND11_MODULE(generator, m) {
+    py::class_<CodeGenerator>(m, "CodeGenerator")
+        .def(py::init<>())
+        .def("generate_machine_code", &CodeGenerator::generateMachineCode)
+        .def("execute_code", &CodeGenerator::executeCode);
+}
