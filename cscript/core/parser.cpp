@@ -18,13 +18,19 @@ public:
             SHOW,
             ARRANGE,
             WHEN,
+            OTHERWISE,
             REPEAT,
+            WHILE,
+            FOREACH,
             VALUE,
             IDENTIFIER,
             NUMBER,
             STRING,
             OPERATOR,
-            END_BLOCK
+            END_BLOCK,
+            MATH,
+            LIST_OP,
+            STRING_OP
         };
         Type type;
         std::string value;
@@ -33,38 +39,44 @@ public:
     };
 
 private:
-  // I parser.cpp, utöka keywords:
-  std::map<std::string, Token::Type> keywords = {
-      // Grundläggande
-      {"create", Token::CREATE},
-      {"store", Token::STORE},
-      {"show", Token::SHOW},
+    std::map<std::string, Token::Type> keywords = {
+        // Grundläggande
+        {"create", Token::CREATE},
+        {"store", Token::STORE},
+        {"show", Token::SHOW},
 
-      // Matematiska operationer
-      {"add", Token::MATH},
-      {"subtract", Token::MATH},
-      {"multiply", Token::MATH},
-      {"divide", Token::MATH},
-      {"power", Token::MATH},
+        // Matematiska operationer
+        {"add", Token::MATH},
+        {"subtract", Token::MATH},
+        {"multiply", Token::MATH},
+        {"divide", Token::MATH},
+        {"power", Token::MATH},
 
-      // Kontrollstrukturer
-      {"when", Token::WHEN},
-      {"otherwise", Token::OTHERWISE},
-      {"repeat", Token::REPEAT},
-      {"while", Token::WHILE},
-      {"foreach", Token::FOREACH},
+        // Kontrollstrukturer
+        {"when", Token::WHEN},
+        {"otherwise", Token::OTHERWISE},
+        {"repeat", Token::REPEAT},
+        {"while", Token::WHILE},
+        {"foreach", Token::FOREACH},
 
-      // Listoperationer
-      {"append", Token::LIST_OP},
-      {"remove", Token::LIST_OP},
-      {"sort", Token::LIST_OP},
-      {"find", Token::LIST_OP},
+        // Listoperationer
+        {"append", Token::LIST_OP},
+        {"remove", Token::LIST_OP},
+        {"sort", Token::LIST_OP},
+        {"find", Token::LIST_OP},
 
-      // Strängoperationer
-      {"join", Token::STRING_OP},
-      {"split", Token::STRING_OP},
-      {"replace", Token::STRING_OP}
-  };
+        // Strängoperationer
+        {"join", Token::STRING_OP},
+        {"split", Token::STRING_OP},
+        {"replace", Token::STRING_OP},
+
+        // Block end
+        {"--", Token::END_BLOCK}
+    };
+
+    std::vector<std::string> operators = {
+        "+", "-", "*", "/", "=", ">", "<", ">=", "<="
+    };
 
 public:
     std::vector<Token> parseCode(const std::string& code) {
@@ -73,12 +85,6 @@ public:
         std::string word;
 
         while (stream >> word) {
-            // Check for end block
-            if (word == "--") {
-                tokens.emplace_back(Token::END_BLOCK, "--");
-                continue;
-            }
-
             // Check for keywords
             if (keywords.find(word) != keywords.end()) {
                 tokens.emplace_back(keywords[word], word);
