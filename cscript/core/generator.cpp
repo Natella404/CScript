@@ -9,21 +9,37 @@
 
 namespace py = pybind11;
 
-class MachineCodeGenerator {  // Notera: Detta är klassens exakta namn
+class MachineCodeGenerator {
 private:
-    // ... (tidigare kod) ...
+    std::vector<std::string> machineCode;  // Lagt till denna rad
+    std::map<std::string, int> variables;
 
 public:
-    MachineCodeGenerator() {}  // Explicit konstruktor
+    MachineCodeGenerator() {}
 
     std::vector<std::string> generateMachineCode(const std::vector<std::string>& tokens) {
-        // ... (tidigare kod) ...
+        // Rensa tidigare genererad kod
+        machineCode.clear();
+        variables.clear();
+
+        // Här kommer vi senare implementera den faktiska kodgenereringen
+        for (const auto& token : tokens) {
+            machineCode.push_back("Processing: " + token);
+        }
+
         return machineCode;
     }
 
-    bool executeCode(const std::vector<std::string>& machineCode) {
-        // ... (tidigare kod) ...
-        return true;
+    bool executeCode(const std::vector<std::string>& code) {
+        try {
+            for (const auto& instruction : code) {
+                std::cout << "Executing: " << instruction << std::endl;
+            }
+            return true;
+        } catch (const std::exception& e) {
+            std::cerr << "Execution error: " << e.what() << std::endl;
+            return false;
+        }
     }
 };
 
