@@ -17,7 +17,7 @@ CScript is a modern programming language that generates optimized machine code, 
 ## Installation
 
 ```bash
-pip install git+https://github.com/Natella404/CScript.git
+pip install --no-build-isolation git+https://github.com/Natella404/CScript.git
 ```
 
 ## Quick Start

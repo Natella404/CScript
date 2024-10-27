@@ -3,22 +3,20 @@
         pkgs.python3
         pkgs.python3Packages.pip
         pkgs.gcc
-        pkgs.python3Packages.pybind11
-        pkgs.cmake
+        pkgs.shared-mime-info
     ];
 
-    # Filtyp-konfiguration för .cript
-    languages.cscript = {
-        extensions = ["cript"];
-        icon = "./cscript/icons/cscript.png";
-        displayName = "CScript";
+    env = {
+        MIME_TYPES = ''
+            text/x-cscript    cript
+        '';
     };
 
-    # MIME-typ konfiguration
-    mimeTypes = {
-        "text/x-cscript" = {
-            extensions = ["cript"];
-            icon = "./cscript/icons/cscript.png";
-        };
+    # Filtyp-konfiguration
+    languages.cscript = {
+        extensions = ["cript"];
+        icon = "./icons/cscript.png";
+        displayName = "CScript";
+        pattern = "**/*.cript";
     };
 }

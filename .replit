@@ -1,14 +1,15 @@
-# .replit
 run = "python3 -m pip install --upgrade pip && pip install -e ."
-language = "python3"
+language = "cscript"
 
 [nix]
 channel = "stable-22_11"
 
 [languages.cscript]
 pattern = "**/*.cript"
-icon = ".icons/cscript.png"
+icon = "./icons/cscript.png"
 display = "CScript"
 
 [env]
 PYTHONPATH = "${PYTHONPATH}:${REPL_HOME}"
+XDG_DATA_HOME = "/home/runner/.local/share"
+XDG_DATA_DIRS = "/home/runner/.local/share:/usr/local/share:/usr/share"
