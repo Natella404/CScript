@@ -1,2 +1,3 @@
 include cscript/core/*.cpp
 include cscript/core/*.h
+include cscript/icons/*
